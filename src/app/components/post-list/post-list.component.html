@@ -1,1 +1,9 @@
-<p>post-list works!</p>
+<h1>Post List</h1>
+<hr>
+
+<ul class="list-group">
+    <a  [routerLink]="['/post', post.id ]" class="list-group-item list-group-item-action animated fadeIn fast"
+        *ngFor="let post of postList">
+        {{ post.title }}
+    </a>
+</ul>
