@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { httpInterceptorProviders } from './Interceptors/index.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,12 @@ import { NewPostComponent } from './components/new-post/new-post.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

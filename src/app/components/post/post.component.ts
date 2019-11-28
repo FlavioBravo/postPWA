@@ -29,8 +29,8 @@ export class PostComponent implements OnInit {
       });
   }
 
-  deletePostById( postId: string ) {
-    this.postService.deletePostById( postId ).
+  deletePostById( postId: number ) {
+    this.postService.deletePostById( postId.toString() ).
     subscribe( (res: any ) => {
       console.log( res );
       alert('Post deleted!');
