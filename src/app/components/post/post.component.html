@@ -2,21 +2,25 @@
 <hr>
 
 <div class="row animated fadeIn fast" *ngIf="currentPost">
-    <div class="col-7">
-        <h5>Datos</h5>
+  <div class="col-7">
+    <h5>Information</h5>
+    <ul class="list-group">
+        <li class="list-group-item">Post ID: {{ currentPost.id }}</li>
+        <li class="list-group-item">User ID: {{ currentPost.userId }}</li>
+        <li class="list-group-item">Description: {{ currentPost.body }}</li>
+    </ul>
 
-        <ul class="list-group">
-            <li class="list-group-item">Post ID: {{ currentPost.id }}</li>
-            <li class="list-group-item">User ID: {{ currentPost.userId }}</li>
-            <li class="list-group-item">Description: {{ currentPost.body }}</li>
-        </ul>
+    <hr>
 
-        <hr>
-    </div>
+    <h5>Actions</h5>
+    <ul class="list-group">
+        <button (click)="deletePostById( currentPost.id )" type="button" class="btn btn-outline-danger">Delete</button>
+    </ul>
+  </div>
 
   <div class="col-5">
-    <a class="btn btn-danger btn-block" routerLink="/">
-      Regresar
+    <a class="btn btn-primary btn-block" routerLink="/">
+      Back
     </a>
   </div>
 </div>

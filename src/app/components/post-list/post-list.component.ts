@@ -9,7 +9,7 @@ import { postInterface } from '../../models/post.interface';
 })
 export class PostListComponent implements OnInit {
 
-  postList: postInterface[] = [];
+  public postList: postInterface[] = [];
 
   constructor( private postService: PostService ) { }
 

@@ -39,4 +39,12 @@ export class PostService {
       })
     );
   }
+
+  deletePostById( postId: string ) {
+    return this.http.delete(`https://jsonplaceholder.typicode.com/posts/${ postId }`).pipe(
+      map( (res:any) =>{
+          return res;
+      })
+    );
+  }
 }

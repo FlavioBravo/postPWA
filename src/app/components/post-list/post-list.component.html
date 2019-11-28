@@ -1,9 +1,16 @@
 <h1>Post List</h1>
 <hr>
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+    <button type="button" class="btn btn-primary" [routerLink]="['/newPost']">Add new Post</button>
+</div>
+<div class="row">
+    <div class="col-12">
+        <ul class="list-group">
+            <a  [routerLink]="['/post', post.id ]" class="list-group-item list-group-item-action animated fadeIn fast"
+                *ngFor="let post of postList">
+                {{ post.title }}
+            </a>
+        </ul>
+    </div>
+</div>
 
-<ul class="list-group">
-    <a  [routerLink]="['/post', post.id ]" class="list-group-item list-group-item-action animated fadeIn fast"
-        *ngFor="let post of postList">
-        {{ post.title }}
-    </a>
-</ul>

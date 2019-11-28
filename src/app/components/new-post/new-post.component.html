@@ -1,0 +1,50 @@
+<h1> New Post </h1>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <br>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-lg-3 col-md-6 col-form-label">Title:</label>
+                <div class="col-lg-9 col-md-6">
+                <input type="text" formControlName="title" class="form-control" id="dni" placeholder="Title ...">
+                <label *ngIf="submitted && registerForm.controls.title.errors?.required" class="text-danger">
+                    <strong>Title is required.</strong>
+                </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-lg-3 col-md-6 col-form-label">Description:</label>
+                <div class="col-lg-9 col-md-6">
+                <textarea formControlName="body" class="form-control" id="nombre" placeholder="Description ..."></textarea>
+                <label *ngIf="submitted && registerForm.controls.body.errors?.required" class="text-danger">
+                    <strong>Description is required.</strong>
+                </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-lg-3 col-md-6 col-form-label">User ID:</label>
+                <div class="col-lg-9 col-md-6">
+                <input type="number" formControlName="userId" class="form-control" id="apellidos" placeholder="User ID ...">
+                <label *ngIf="submitted && registerForm.controls.userId.errors?.required" class="text-danger">
+                    <strong>User ID is required.</strong>
+                </label>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="flagRes">
+                <label class="col-lg-12 col-md-12 badge badge-warning text-wrap"><b>{{ message }}</b></label>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12 col-md-12">
+                <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+        <br>
+        <a class="btn btn-primary btn-block" routerLink="/">
+            Back
+        </a>
+    </div>
+</div>

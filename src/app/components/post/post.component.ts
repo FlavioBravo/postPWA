@@ -10,7 +10,7 @@ import { postInterface } from '../../models/post.interface';
 })
 export class PostComponent implements OnInit {
 
-  currentPost: postInterface;
+  public currentPost: postInterface;
 
   constructor( private postService: PostService,
                private activatedRoute: ActivatedRoute,
@@ -27,6 +27,14 @@ export class PostComponent implements OnInit {
       subscribe( (res: postInterface ) => {
         this.currentPost = res;
       });
+  }
+
+  deletePostById( postId: string ) {
+    this.postService.deletePostById( postId ).
+    subscribe( (res: any ) => {
+      console.log( res );
+      alert('Post deleted!');
+    });
   }
 
 }
