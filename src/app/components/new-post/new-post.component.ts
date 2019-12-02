@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../../services/post.service';
+import { DbContextService } from '../../services/db-context.service';
 
 @Component({
   selector: 'app-new-post',
@@ -15,7 +16,8 @@ export class NewPostComponent implements OnInit {
   flagRes: boolean = false;
 
   constructor( private formBuilder: FormBuilder,
-               private postService: PostService) { }
+               private postService: PostService,
+               private dbStore: DbContextService) { }
 
   ngOnInit() {
     this.initnewPost();
@@ -37,16 +39,22 @@ export class NewPostComponent implements OnInit {
  
   	this.postService.postNewPost(this.registerForm.value)
       .subscribe((res: any) => {
-        console.log(res);
         this.submitted = false;
         this.flagRes = true;
         this.initnewPost();
         this.message = "Successful post :)";
       }, (error: any) => {
+        if(error.status === 0){
+          this.submitted = false;
+          this.flagRes = true;
+          this.initnewPost();
+          this.message = "Successful post :)";
+          return;
+        }
         this.submitted = false;
         this.flagRes = true;
         this.message = "Error, please try it later :(";
-        console.log(error);
+        
   	});
   }
 

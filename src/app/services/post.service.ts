@@ -2,25 +2,41 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { postInterface } from '../models/post.interface';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
+  private posts: postInterface[] = [];
+
   constructor( private http: HttpClient ) {
 
   }
 
   getPostList(){
+    if ( this.posts.length > 0 ) {
+      return of(this.posts);
+    }
+
     return this.http.get('https://jsonplaceholder.typicode.com/posts').pipe(
-      map( (res:any) =>{
+      map( (res: postInterface[]) =>{
+          this.posts = res;
           return res;
+
       })
     );
   }
 
-  getPostById( postId: string){
+  getPostById( postId: number){
+
+    if ( this.posts.length > 0 ) {
+      // hay paises en el arreglo
+      const pais = this.posts.find( p => p.id === postId );
+      return of( pais );
+    }
+
     return this.http.get(`https://jsonplaceholder.typicode.com/posts/${ postId }`).pipe(
       map( (res:any) =>{
           return res;

@@ -19,10 +19,10 @@ export class PostComponent implements OnInit {
   ngOnInit() {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.getPostById( id );
+    this.getPostById( +id );
   }
 
-  getPostById( postId: string ) {
+  getPostById( postId: number ) {
     this.postService.getPostById( postId ).
       subscribe( (res: postInterface ) => {
         this.currentPost = res;

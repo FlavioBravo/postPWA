@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { openDB } from 'idb';
+import { openDB, IDBPTransaction } from 'idb';
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +15,7 @@ export class DbContextService {
     }
   }
 
-  getId() {
-    // creating a genuine GUID in javascript is kind of a bizarre thing,
-    // I'm using a simple timestamp for this demo.
-    return new Date().getTime();
-  }
-
   idbContext() {
-    /*return openDB(this.dbName, this.dbVersion, {  
-      upgrade(db, oldVersion, newVersion, transaction) {
-          db.createObjectStore(this.dbTableName,{ keyPath: 'userId' });
-      }
-    });*/
     return openDB(this.dbName, this.dbVersion, {
       upgrade(db) {
         db.createObjectStore('failedRequestsTable', {
@@ -40,19 +29,6 @@ export class DbContextService {
   }
 
   async saveRequest(url: string, method: string, body: any) {
-    // in case the sync method fails, this method will be
-    // invoked again. to prevent duplications of the very same object in localDb,
-    // we add a custom property (clientId), and simply return before save
-    /*if (body.hasOwnProperty('clientId')) {
-      console.log('this item is already in indexedDb');
-      return;
-    }
-
-    if (body.hasOwnProperty('description')) {
-      body['description'] = `${body['description']} (auto-sync)`;
-    }*/
-    const customId = this.getId();
-    //body.clientId = customId;
     const obj = {
       userId: body.body.userId,
       body: body.body.body,
@@ -60,19 +36,18 @@ export class DbContextService {
     };
 
     const db = await this.idbContext();
-    await db.add( 'failedRequestsTable' , obj);
+    return await db.add( 'failedRequestsTable' , obj);
+  }
+
+  async delete(userId: number) {
+    const db = await this.idbContext();
+    return await db.delete('failedRequestsTable', userId);
   }
 
   async getAll() {
     const db = await this.idbContext();
-    return db.transaction(this.dbTableName, 'readonly').objectStore(this.dbTableName).getAll();
-  }
+    return await db.getAll("failedRequestsTable");
 
-  async delete(clientId: string) {
-    const db = await this.idbContext();
-    const tx = db.transaction(this.dbTableName, 'readwrite');
-    tx.objectStore(this.dbTableName).delete(clientId);
-    return tx.done;
   }
 
 }
