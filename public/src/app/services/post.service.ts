@@ -69,7 +69,7 @@ export class PostService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.post('http://localhost:3000/api/subscribe', { body: JSON.stringify(subscription) }, { headers, observe: 'response' }).pipe(
+    return this.http.post('http://localhost:3000/api/subscribe', { body: subscription }, { headers, observe: 'response' }).pipe(
       map( (res:any) =>{
           return res;
       })

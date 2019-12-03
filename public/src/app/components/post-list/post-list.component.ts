@@ -13,7 +13,7 @@ declare const window: any;
 export class PostListComponent implements OnInit {
 
   public postList: postInterface[] = [];
-  readonly VAPID_PUBLIC_KEY = "BJF6yLLBeXqESpF-7EVQrYie1v5rwcuFOveNZFiSYVxi0Y4byZ2cVotTP7ejimvAgUHQlKxlnRI3F3BJe65BlsY";
+  readonly VAPID_PUBLIC_KEY = "BFa_InG6g_h7FmupBqEunZ_PHMqsIagrp_YtKcvqayxtrPQdVZ0a_2IEqxIcY_HKv-3Ptu041ifF-4jONsSoHB4";
   
 
   constructor( private postService: PostService,
@@ -39,7 +39,7 @@ export class PostListComponent implements OnInit {
         serverPublicKey: this.VAPID_PUBLIC_KEY
     })
     .then(sub => {
-      this.postService.addPushSubscriber(sub).subscribe( res => console.log('Respuesta PUSH', res) );
+      this.postService.addPushSubscriber( sub ).subscribe( res => console.log('Respuesta PUSH', res) );
     })
     .catch(err => console.error("Could not subscribe to notifications", err));
   }

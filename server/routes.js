@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
 // Store the subscription
 router.post('/subscribe', (req, res) => {
 
-  const suscripcion = req.body;
+  const suscripcion = req.body.body;
 
   push.addSubscription( suscripcion );
   res.json('subscribe');
@@ -61,10 +61,17 @@ router.get('/key', (req, res) => {
 
 // Send a notification PUSH to the people
 // Es algo que se controla del lado del server, no del api REST
-router.post('/push', (req, res) => {
+router.post('/push', async (req, res) => {
 
-  const key = push.getKey();
-  res.json('key publico');
+  const notificacion = {
+    titulo: req.body.titulo,
+    cuerpo: req.body.cuerpo,
+    usuario: req.body.usuario
+  }
+
+    push.sendPush( notificacion );
+
+  res.json( notificacion );
   
 });
 
