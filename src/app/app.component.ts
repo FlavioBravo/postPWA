@@ -19,11 +19,7 @@ export class AppComponent {
 
     this.onlineOfflineService.connectionChanged.subscribe( res => {
       if (res) {
-        this.toasts.success('','No Network connection is available.', {
-          timeOut: 1000,
-        });
         const promisePostsList = [];
-        console.log('Estamos ONLINE !');
         this.dbStore.getAll().then( res => {
 
           const posts = res;
@@ -37,7 +33,10 @@ export class AppComponent {
           });
         });
 
-      return Promise.all( promisePostsList );
+        this.toasts.success('The posts was sent.','No Network connection is available.', {
+          timeOut: 1000,
+        });
+        return Promise.all( promisePostsList );
       } else {
         this.toasts.warning('','No Network connection', {
           timeOut: 1000,
