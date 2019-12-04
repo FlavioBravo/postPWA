@@ -33,15 +33,16 @@ module.exports.sendPush = ( post ) => {
 
     suscripciones.forEach( (suscripcion, i) => {
         console.log(suscripcion);
+        //JSON.stringify(post)
         const pushProm = webpush.sendNotification( suscripcion, JSON.stringify(post) )
-        .then( console.log( 'Notificacion enviada ') )
-        .catch( err => {
+            .then( console.log( 'Notificacion enviada ') )
+            .catch( err => {
 
-            console.log('Notificación falló', err);
+                console.log('Notificación falló', err);
 
-            if ( err.statusCode === 410 ) { // GONE, ya no existe
-                suscripciones[i].borrar = true;
-            }
+                if ( err.statusCode === 410 ) { // GONE, ya no existe
+                    suscripciones[i].borrar = true;
+                }
 
         });
 

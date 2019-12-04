@@ -63,11 +63,25 @@ router.get('/key', (req, res) => {
 // Es algo que se controla del lado del server, no del api REST
 router.post('/push', async (req, res) => {
 
-  const notificacion = {
+  /*const notificacion = {
     titulo: req.body.titulo,
     cuerpo: req.body.cuerpo,
     usuario: req.body.usuario
-  }
+  }*/
+
+  const notificacion = {
+    "notification": {
+      "title": req.body.titulo,
+      "body": req.body.cuerpo,
+      "icon": "https://i.pinimg.com/originals/2d/17/2e/2d172e46ce83cf2fb78912e49af923e6.png",
+      "openUrl": "/",
+      "vibrate": "[125,75,125,275,200,275,125,75,125,275,200,600,200,600]",
+      "data": {
+        "url": "/",
+        "id": "PWA"
+      }
+    }
+  };
 
     push.sendPush( notificacion );
 
