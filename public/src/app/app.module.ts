@@ -31,7 +31,7 @@ import { httpInterceptorProviders } from './Interceptors/index.interceptor';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('sw-custom.js', { enabled: environment.production })
   ],
   providers: [
     httpInterceptorProviders
